@@ -1,0 +1,24 @@
+<form action="/submit-form" method="POST">
+  <label for="message">Message: </label>
+  <input
+    type="text"
+    name="message"
+    id="message"
+    required
+    value="<%= message %>"
+    <!--
+    Safely
+    use
+    the
+    message
+    variable
+    --
+  />
+
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Display feedback if available -->
+<% if (feedback) { %>
+<p><%= feedback %></p>
+<% } %>
