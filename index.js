@@ -4,6 +4,11 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
+// Import route files
+const indexRoutes = require('./routes/index');
+const aboutRoutes = require('./routes/about');
+const greetRoutes = require('./routes/greet');
+
 // Middleware setup
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,28 +19,18 @@ app.set('view engine', 'ejs');
 // Static middleware for serving images and other static files
 app.use(express.static('public'));
 
-// Routes
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home Page', feedback: null, message: '' });  // Pass empty message by default
-});
+// Use the routes from the 'routes' folder
+app.use('/', indexRoutes); // Home route
+app.use('/', aboutRoutes); // About route
+app.use('/', greetRoutes); // Greet route
 
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About Us' });
-});
-
-// Route with a parameter
-app.get('/greet/:name', (req, res) => {
-    const { name } = req.params;
-    res.render('greet', { title: 'Greeting', name });
-});
-
-// Handle POST form submission
+// Handle POST form submission 
 app.post('/submit-form', (req, res) => {
-    const message = req.body.message;  // Get message from the form
-    console.log(message);  // Log the message to the console
-    res.render('index', { title: 'Home Page', feedback: 'Form submitted successfully!', message });  // Pass message and feedback
+    console.log(req.body);
+    const message = req.body.message;
+    console.log(message);
+    res.render('index', { title: 'Home Page', feedback: 'Form submitted successfully!', message });
 });
-
 
 // 404 error handler 
 app.use((req, res) => {
