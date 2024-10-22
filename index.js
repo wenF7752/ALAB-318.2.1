@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const indexRoutes = require('./routes/index');
 const aboutRoutes = require('./routes/about');
 const greetRoutes = require('./routes/greet');
-
+const imageRoutes = require('./routes/image');
 // Middleware setup
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +23,7 @@ app.use(express.static('public'));
 app.use('/', indexRoutes); // Home route
 app.use('/', aboutRoutes); // About route
 app.use('/', greetRoutes); // Greet route
+app.use('/', imageRoutes); // Image route
 
 // Handle POST form submission 
 app.post('/submit-form', (req, res) => {

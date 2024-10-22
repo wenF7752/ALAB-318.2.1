@@ -7,4 +7,8 @@ router.get('/greet/:name', (req, res) => {
     res.render('greet', { title: 'Greeting', name });
 });
 
+
+router.get('/greet', (req, res) => {
+    res.render('greet', { title: 'Greeting', name: 'Stranger' });
+});
 module.exports = router;
